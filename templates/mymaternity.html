@@ -1,0 +1,144 @@
+{% extends "index.html" %}
+{% block content %}
+<style>
+    .contents{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+    }
+    .contents .items{
+        width:40%;
+    }
+    .cards{
+        width:250px;
+        padding: 10px;
+        box-sizing: border-box;
+        border: .5px solid green;
+        border-radius: 10px;
+    }
+    .cards img{
+        width:100%;
+        height: 100px;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="profile">
+                    <h3 class="text-center">My Profile</h3>
+                    <table class="table table-borderless table-stripped">
+                        <tr>
+                            <td>Name:</td>
+                            <th>{{profile.PatientName}}</th>
+                        </tr>
+                        <tr>
+                            <td>Phone</td>
+                            <th>{{profile.PhoneNumber}}</th>
+                        </tr>
+                        <tr>
+                            <td>Maternity Start</td>
+                            <th>{{profile.maternity_start}}
+                                <form action="{%url 'ChangeMaternityStartDate' %}" method="post">
+                                    {% csrf_token %}
+                                    Change Start Date:
+                                        <input type="date" name="date" required>
+                                        <button  type="submit" class="btn btn-info btn-sm">Update</button>
+                                </form>
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <td>Current status</td>
+                            <th>
+                            {{weeks}} Week Maternity
+                                
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>Doctor</td>
+                            <th>{{profile.Doctor}}</th>
+                        </tr>
+
+                    </table>
+                    
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <h3 class="text-center">My Recomendations</h5>
+                    <h2>Food Recomendations</h2>
+                    <div class="contents">
+                        
+                        {% for i in food %}
+                        <div class="items">
+    
+                            <div class="cards">
+                                <h4>{{i.food}}</h4>
+                                <img src="{{i.foodimage.url}}" alt="">
+                                <br>
+                                <p>Calories: {{i.calories}}</p>
+                                <h4>Nutrition: {{i.nutrition}}</h4>
+    
+                                
+    
+                            </div>
+    
+                        </div>
+                        {% endfor %}
+                        
+                    </div>
+                    <h2>Workout Recomendations</h2>
+
+                    <div class="contents">
+                    
+                        
+                        {% for i in workout %}
+                        <div class="items">
+    
+                            <div class="cards">
+                                <h4>{{i.workoutname}}</h4>
+                                <img src="{{i.workoutimage.url}}" alt="">
+                                <br>
+                                <p>{{i.description}}</p>
+                                
+    
+                            </div>
+    
+                        </div>
+                        {% endfor %}
+                        
+                    </div>
+
+                    <h2>Dress Recomendations</h2>
+                <div class="contents">
+                    
+                    
+                    {% for i in product %}
+                    <div class="items">
+
+                        <div class="cards">
+                            <h4>{{i.name}}</h4>
+                            <img src="{{i.image.url}}" alt="">
+                            <br>
+                            <p>{{i.description}}</p>
+                            <h4>Price: {{i.MRP}}</h4>
+
+                            <a href="{%url 'AddToCart' i.id %}" class="btn btn-warning  btn-sm">Add To cart</a>
+
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

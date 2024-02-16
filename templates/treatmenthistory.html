@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+{% block content %}
+<style>
+    .w-100{
+        background-color: rgb(242, 238, 233);
+    }
+</style>
+<div class="container align-content-center mt-5">
+    <div class="row">
+        {% for t in treat  %}
+
+        <div class="col-12 border-danger mt-3">
+            <div class="card w-100 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">History</h5>
+                    <h6>Doctor: {{t.Doctor}}</h6>
+                    <p class="card-text">
+                        <strong>Date:</strong>{{t.dateVisited}}
+                        <br>
+                        <strong>Disease:</strong>{{t.Disease}}<dd>
+                            <br>
+                            <strong>Treatment:</strong>{{t.Treatmet}}
+                            <br>
+                            <strong>Medicine:</strong>{{t.Medicine}}
+                        </dd>
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+
+    </div>
+</div>
+<br><br><br>
+
+{% endblock %}

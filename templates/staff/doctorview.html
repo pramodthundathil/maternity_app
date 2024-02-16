@@ -1,0 +1,26 @@
+{% extends "staff/staffhome.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h3>Doctors Profiles</h3>
+    {% for m  in messages  %}
+      <h4 style="color:red">{{m}}</h4>
+    {% endfor %}
+    <table class="table">
+        <tr>
+            <th>Doctor Name</th>
+            <th>Action</th>
+        </tr>
+        {% for pro in doctor %}
+          
+        <tr>
+            <td>{{pro}}</td>
+            
+            <td>
+                <a href="#" class="btn btn-outline-dark btn-sm">View</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+{% endblock %}

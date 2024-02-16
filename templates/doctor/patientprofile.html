@@ -1,0 +1,207 @@
+{% extends "doctor/doctorindex.html" %}
+{% block content %}
+<style>
+    input {
+        width: 100%;
+        padding: 6px;
+        border-bottom: .5px solid red;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
+    .testdata{
+        width: 100%;
+        height:500px;
+        overflow: scroll;
+    }
+    strong{
+        color:rgb(0, 55, 128)
+    }
+</style>
+
+<div class="container">
+    {% for b in booking %}
+
+    <div class="row">
+    
+        <div class="col-12">
+            <h3 class="display-4 text-capitalize text-center mt-3">Patient Profile</h3>
+            {% for m  in messages  %}
+            <h4 style="color:green">{{m}}</h4>
+            {% endfor %}
+        </div>
+        <div class="col-6 mt-5">
+            <h1 class="display-5 text-success">Profiles</h1><br><br>
+            <h2>Patient Name: {{b.user.first_name}}</h2>
+            <h3>Appointment Time: {{b.Time}}</h3>
+            <h3>Last Appointment: {{b.Date}}</h3>
+            <h3 style="display: inline;">Doctor: {{b.Doctor}} </h3>
+            <!-- <button
+                class="btn btn-sm btn-outline-info">Change</button> -->
+
+        </div>
+        <div class="col-6 mt-5">
+            <h1 class="display-5 text-success">Treatment History</h1><br><br>
+            <div class="testdata">
+            {% for t in treatment %}
+
+            <div class="container ">
+                <h3>Date:{{t.dateVisited}}</h3>
+                <p><strong>Disease: </strong> {{t.Disease}}</p>
+                <p><strong>Treatment:</strong> {{t.Treatmet}}</p>
+                <p><strong>Medicines:</strong> {{t.Medicine}}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        </div>
+        <div class="col-12 text-center mt-4" style="border-top: 1px solid blue;">
+            {% if group == 'doctor' %}
+            <div class="container mt-5">
+                <h3>Consultation Summery</h3>
+                <form action="{%url 'AddSummery' pk %}" method="post">
+                    {% csrf_token %}
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Disease
+                            </th>
+                            <td>
+                                <textarea name="dises" id="" cols="50" rows="4"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Treatment
+                            </th>
+                            <td>
+                                <textarea name="treat" id="" cols="50" rows="4"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Medicines
+                            </th>
+                            <td>
+                                <textarea name="Medicines" id="" cols="50" rows="4"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <button class="btn btn-info" type="submit">Add Summery</button>
+
+            </div>
+            </form>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="col-12 text-center mt-4" style="border-top: 1px solid red;">
+            <h3 class="mt-4">Profile</h3>
+            {% if lenpa == 0 %}
+            <h4>Add Profile</h4>
+            <form action="{%url 'AddPatientProfile' pk %}" method="post">
+                {% csrf_token %}
+                <table class="table">
+                    <tr>
+                        <td>
+                            <label for="">Patient Name:</label>
+                        </td>
+                        <th>
+                            <input type="text" name="pname" required>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="">Place:</label>
+
+                        </td>
+                        <th>
+                            <input type="text" name="place" value="" required>
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="number">Number:</label>
+
+                        </td>
+                        <th>
+                            <input type="number" name="pnum" required>
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="">Treatment:</label>
+
+                        </td>
+                        <th>
+                            <input type="text" name="trment" required>
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="2"><button type="submit" class="btn btn-info">Add Profile</button></th>
+                    </tr>
+                </table>
+            </form>
+            {% else %}
+            <h4>Profile</h4>
+            {% for p in Patient  %}
+            <form action="{%url 'UpdateProfile' p.id pk %}" method="post">
+                {% csrf_token %}
+                <table class="table">
+                    <tr>
+                        <td>
+                            <label for="">Patient Name:</label>
+                        </td>
+                        <th>
+                            <input type="text" name="pname" value="{{p.PatientName}}">
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="">Place:</label>
+
+                        </td>
+                        <th>
+                            <input type="text" name="place" value="{{p.Place}}">
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="number">Number:</label>
+
+                        </td>
+                        <th>
+                            <input type="number" name="pnum" value="{{p.PhoneNumber}}">
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="">Treatment:</label>
+
+                        </td>
+                        <th>
+                            <input type="text" name="trment" value="{{p.Treatment}}">
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <button class="btn btn-outline-warning" type="submit">Update</button>
+                        </th>
+                    </tr>
+                </table>
+            </form>
+            {% endfor %}
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+<br><br><br>
+{% endblock %}

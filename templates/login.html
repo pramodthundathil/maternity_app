@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #0cd268;
+    }
+
+    .appointment input {
+        width: 80%;
+        padding: 7px;
+        margin-top: 10px;
+    }
+    #btn{
+        width: 20%;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+</style>
+<form method="post">
+
+<div class="conteiner-fluid text-center">
+    <div class="container mt-5 appointment">
+        <h2>SignIn</h2>
+        {% for message in messages %}
+        <h3>{{message}}</h3>
+        {% endfor %}
+        <div class="row">
+                {% csrf_token %}
+                <div class="col-6">
+                    <input type="text" name="uname" placeholder="Username">
+                </div>
+                <div class="col-6">
+                    <input type="password" name="pswd" placeholder="Password">
+
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-dark" id="btn">Login</button><br><br>
+                don't Have an Account Register <a href="{%url 'SignUp' %}">Here</a>
+
+                </div>
+                <br><br><br><br><br><br><br><br>
+
+
+        </div>
+    </div>
+</div>
+</form>
+
+
+{% endblock %}

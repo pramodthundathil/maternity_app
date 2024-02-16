@@ -1,0 +1,18 @@
+{% extends "staff/staffhome.html" %}
+{% block content %}
+<div class="container mt-5">
+    {% for b in bill %}
+      
+    <div class="card">
+        <h5 class="card-header">Bill Date: {{b.date}}</h5>
+        <div class="card-body">
+          <h5 class="card-title">Patient Name: {{b.user.first_name}} {{b.user.last_name}} </h5>
+          <p class="card-text">Bill Amount: {{b.Billamount}}  </p>
+          <a href="#" onclick="alert('You Cannot Delete Bills')" class="btn btn-outline-danger">Delete</a>
+        </div>
+      </div>
+    {% endfor %}
+
+</div>
+<br><br><br>
+{% endblock %}

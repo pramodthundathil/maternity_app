@@ -1,0 +1,118 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<style>
+    body{
+        background-color: #0cd268;
+    }
+    .appointment input{
+        width: 80%;
+        padding: 7px;
+        margin-top: 10px;
+    }
+    .appointment select{
+        width: 80%;
+        padding: 7px;
+        margin-top: 10px;
+        border: .5px solid gray;
+    }
+    h2{
+        color: white;
+        font-weight: 600;
+
+    }
+    .timeitem{
+        padding: 20px 10px ;
+        background-color: yellow;
+        font-weight: 700;
+        margin: 10px;
+    }
+    #timeslots{
+        display: none;
+    
+    }
+</style>
+<div class="conteiner-fluid text-center">
+    <div class="container mt-5 appointment">
+        <form method="post">
+            {% csrf_token %}
+        <h2>Make Apponintment</h2>
+        {% for message in messages %}
+        <h6 style="color:red;text-align:center;">{{message}}</h6>
+        {% endfor %}
+
+        <div class="row">
+            {% for fields in form  %}
+              
+            <div class="col-6">
+                {{fields.label}}: <br>
+                {{fields}}<br><br>
+            </div>
+            {% endfor %}
+            
+            <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-dark">Make Appointment</button>
+                <br><br>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5 mb-5">
+    <h3>My appoinments</h3>
+    <div class="container mt-5 ">
+        {% for b in book  %}
+          
+        <div class="card mt-5 bg-info">
+            <div class="card-header">
+              Appointmnets
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{b.Doctor}}</h5>
+              <p class="card-text"><b>Date:</b> {{b.Time}}
+    
+                <br><br>
+                <strong>Time: </strong>{{b.Date}}
+            
+            </p>
+              <a href="{%url 'CancelBooking' b.id %}" class="btn btn-outline-warning">Cancel</a>
+            </div>
+          </div>
+        {% endfor %}
+    
+    </div>
+      <br><br><br>
+</div>
+<script>
+    const picker = document.getElementById('date1');
+    picker.addEventListener('input', function(e){
+    var day = new Date(this.value).getUTCDay();
+    if([6,0].includes(day)){
+        e.preventDefault();
+        this.value = '';
+    alert('No Appointments on Saturday and Sunday');
+  }
+});
+
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+var yyyy = today.getFullYear();
+if (dd < 10) {
+  dd = '0' + dd
+}
+if (mm < 10) {
+  mm = '0' + mm
+}
+
+today = yyyy + '-' + mm + '-' + dd;
+document.getElementById("date1").setAttribute("min", today);
+document.getElementById("datefield2").setAttribute("min", today)
+
+
+
+
+</script>
+{% endblock %}
+    

@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="container mt-5 ">
+    {% for b in book  %}
+      
+    <div class="card mt-5 bg-info">
+        <div class="card-header">
+          Appointmnets
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{b.Doctor}}</h5>
+          <p class="card-text"><b>Date:</b> {{b.Time}}
+
+            <br><br>
+            <strong>Time: </strong>{{b.Date}}
+        
+        </p>
+          <a href="{%url 'CancelBooking' b.id %}" class="btn btn-outline-warning">Cancel</a>
+        </div>
+      </div>
+    {% endfor %}
+
+</div>
+  <br><br><br>
+{% endblock %}

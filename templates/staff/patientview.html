@@ -1,0 +1,32 @@
+{% extends "staff/staffhome.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h3>Patient Profiles</h3>
+    {% for m  in messages  %}
+      <h4 style="color:red">{{m}}</h4>
+    {% endfor %}
+    <table class="table">
+        <tr>
+            <th>Patient Name</th>
+            <th>Phone Number</th>
+            <th>Doctor</th>
+            <th>Treatment</th>
+            <th>Action</th>
+        </tr>
+        {% for pro in profile %}
+          
+        <tr>
+            <td>{{pro.PatientName}}</td>
+            <td>{{pro.PhoneNumber}}</td>
+            <td>{{pro.Doctor}}</td>
+            <td>{{pro.Treatment}}</td>
+            <td>
+                <a href="{%url 'DeleteProfile' pro.id %}" class="btn btn-outline-danger btn-sm">delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+{% endblock %}
